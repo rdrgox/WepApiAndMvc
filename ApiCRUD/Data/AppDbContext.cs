@@ -1,9 +1,8 @@
-﻿using System;
-using ApiCRUD.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace ApiCRUD.Data
+﻿namespace ApiCRUD.Data
 {
+    using ApiCRUD.Models;
+    using Microsoft.EntityFrameworkCore;
+
     public class AppDbContext : DbContext
     {
 
@@ -12,6 +11,6 @@ namespace ApiCRUD.Data
            
         }
 
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Student> students { get; set; }
     }
 }

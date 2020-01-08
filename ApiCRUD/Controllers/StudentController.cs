@@ -1,19 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ApiCRUD.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using ApiCRUD.Data;
+    using ApiCRUD.Models;
+    using Microsoft.AspNetCore.Mvc;
+
+    [Route("api/[Controller]")]
     public class StudentController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        private AppDbContext _context;
+
+        public StudentController(AppDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        //Get All Students
+        public List<Student> GetStudents()
+        {
+            return _context.students.ToList();
         }
     }
 }
