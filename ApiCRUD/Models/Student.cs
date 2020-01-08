@@ -7,5 +7,7 @@ namespace ApiCRUD.Models
 
         public string Name { get; set; }
 
+        public String Direccion { get; set; }
+
     }
 }
