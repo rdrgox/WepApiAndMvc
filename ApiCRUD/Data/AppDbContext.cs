@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiCRUD.Data
 {
-    public class Context : DbContext
+    public class AppDbContext : DbContext
     {
 
-        public Context(DbContextOptions<Context> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
            
         }
 
-        public DbSet<Student> students { get; set; }
+        public DbSet<Student> Students { get; set; }
     }
 }
