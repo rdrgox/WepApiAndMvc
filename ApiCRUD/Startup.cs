@@ -23,6 +23,7 @@ namespace ApiCRUD
             services.AddControllers();
             services.AddDbContextPool<AppDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
+            services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +43,8 @@ namespace ApiCRUD
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
+            });          
+
         }
     }
 }
