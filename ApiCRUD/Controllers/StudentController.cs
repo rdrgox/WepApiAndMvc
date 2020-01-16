@@ -8,7 +8,8 @@ namespace ApiCRUD.Controllers
     using ApiCRUD.Models;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/[Controller]")]
+    [Route("api/[controller]")]
+    [ApiController]
     public class StudentController : Controller
     {
         private AppDbContext _context;
@@ -19,6 +20,7 @@ namespace ApiCRUD.Controllers
         }
 
         //Get All Students
+        [HttpGet]
         public List<Student> GetStudents()
         {
             return _context.students.ToList();
