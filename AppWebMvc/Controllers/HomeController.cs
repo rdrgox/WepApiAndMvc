@@ -6,21 +6,36 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AppWebMvc.Models;
+using AppWebMvc.Helper;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace AppWebMvc.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        StudentApi _api = new StudentApi();
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        //private readonly ILogger<HomeController> _logger;
 
-        public IActionResult Index()
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<Student> students = new List<Student>();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync("api/student");
+
+            if(res.IsSuccessStatusCode)
+            {
+                var result = res.Content.ReadAsStringAsync().Result;
+                students = JsonConvert.DeserializeObject<List<Student>>(result);
+            }
+
+            return View(students);
         }
 
         public IActionResult Privacy()
