@@ -27,6 +27,7 @@ namespace AppWebMvc.Controllers
         {
             List<Student> students = new List<Student>();
             HttpClient client = _api.Initial();
+
             HttpResponseMessage res = await client.GetAsync("api/student");
 
             if(res.IsSuccessStatusCode)
@@ -38,7 +39,26 @@ namespace AppWebMvc.Controllers
             return View(students);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Details(int Id)
+        {
+            var student = new Student();
+            HttpClient client = _api.Initial();
+
+            HttpResponseMessage res = await client.GetAsync($"api/student/{Id}");
+
+            if(res.IsSuccessStatusCode)
+            {
+                var result = res.Content.ReadAsStringAsync().Result;
+                student = JsonConvert.DeserializeObject<Student>(result);
+            }
+
+            return View(student);
+        }
+
+
+
+
+            public IActionResult Privacy()
         {
             return View();
         }
