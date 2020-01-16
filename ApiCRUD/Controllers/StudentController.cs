@@ -25,5 +25,14 @@ namespace ApiCRUD.Controllers
         {
             return _context.students.ToList();
         }
-    }
+
+        [HttpGet("{id}")]
+        public Student GetStudent(int Id)
+        {
+            var student = _context.students.Where(a => a.Id == Id).SingleOrDefault();
+            return student;
+        }
+
+
+    }//Fin
 }
