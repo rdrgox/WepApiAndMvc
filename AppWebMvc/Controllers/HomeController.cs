@@ -25,7 +25,7 @@ namespace AppWebMvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Student> students = new List<Student>();
+            List<StudentData> students = new List<StudentData>();
             HttpClient client = _api.Initial();
 
             HttpResponseMessage res = await client.GetAsync("api/student");
@@ -33,7 +33,7 @@ namespace AppWebMvc.Controllers
             if(res.IsSuccessStatusCode)
             {
                 var result = res.Content.ReadAsStringAsync().Result;
-                students = JsonConvert.DeserializeObject<List<Student>>(result);
+                students = JsonConvert.DeserializeObject<List<StudentData>>(result);
             }
 
             return View(students);
@@ -41,7 +41,7 @@ namespace AppWebMvc.Controllers
 
         public async Task<IActionResult> Details(int Id)
         {
-            var student = new Student();
+            var student = new StudentData();
             HttpClient client = _api.Initial();
 
             HttpResponseMessage res = await client.GetAsync($"api/student/{Id}");
@@ -49,13 +49,43 @@ namespace AppWebMvc.Controllers
             if(res.IsSuccessStatusCode)
             {
                 var result = res.Content.ReadAsStringAsync().Result;
-                student = JsonConvert.DeserializeObject<Student>(result);
+                student = JsonConvert.DeserializeObject<StudentData>(result);
             }
 
             return View(student);
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult Create(StudentData student)
+        {
+
+            HttpClient client = _api.Initial();
+
+            var posTask = client.PostAsJsonAsync<StudentData>("api/student", student);
+            posTask.Wait();
+
+            var result = posTask.Result;
+            if(result.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> Delete(int Id)
+        {
+            var student = new StudentData();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.DeleteAsync($"api/student/{Id}");
+
+            return RedirectToAction("Index");
+        }
 
 
             public IActionResult Privacy()
