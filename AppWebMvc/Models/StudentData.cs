@@ -1,7 +1,7 @@
 ﻿using System;
 namespace AppWebMvc.Models
 {
-    public class Student
+    public class StudentData
     {
         public int Id { get; set; }
 
