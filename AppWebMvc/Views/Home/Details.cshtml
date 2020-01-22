@@ -1,0 +1,28 @@
+﻿@model AppWebMvc.Models.StudentData
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                <h1>@Model.Name</h1>
+            </div>
+
+            <div class="card-body text-center">
+
+                <h4>Employee ID:  @Model.Id </h4>
+                <h4>Email: @Model.Name</h4>
+                <h4>Department: @Model.Direccion</h4>
+            </div>
+            <div class="card-footer text-center">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back</a>
+                <a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+            </div>
+        </div>
+    </div>
+</div>
